@@ -20,7 +20,7 @@ export default function RegisterPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (password.length < 6) {
-      setError('Mật khẩu tối thiểu 6 ký tự')
+      setError('Mat khau toi thieu 6 ky tu')
       return
     }
     setLoading(true)
@@ -48,8 +48,8 @@ export default function RegisterPage() {
       <div className="min-h-screen bg-page flex items-center justify-center px-4">
         <div className="text-center">
           <div className="text-4xl mb-4">🎉</div>
-          <h2 className="text-h2 font-bold text-text-primary mb-2">Đăng ký thành công!</h2>
-          <p className="text-body text-text-secondary">Đang chuyển đến dashboard...</p>
+          <h2 className="text-h2 font-bold text-text-primary mb-2">Dang ky thanh cong!</h2>
+          <p className="text-body text-text-secondary">Dang chuyen den dashboard...</p>
         </div>
       </div>
     )
@@ -62,20 +62,20 @@ export default function RegisterPage() {
           <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center mx-auto mb-3">
             <BookOpen className="w-6 h-6 text-white" />
           </div>
-          <h1 className="text-h2 font-bold text-text-primary">Tạo tài khoản</h1>
-          <p className="text-small text-text-secondary mt-1">MiềE phí  Ekhông cần thẻ tín dụng</p>
+          <h1 className="text-h2 font-bold text-text-primary">Tao tai khoan</h1>
+          <p className="text-small text-text-secondary mt-1">Mien phi — khong can the tin dung</p>
         </div>
 
         <div className="bg-surface rounded-xl shadow-card border border-[rgba(0,0,0,0.08)] p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-small font-medium text-text-primary mb-1.5">HềEtên</label>
+              <label className="block text-small font-medium text-text-primary mb-1.5">Ho ten</label>
               <input
                 type="text"
                 value={fullName}
                 onChange={e => setFullName(e.target.value)}
                 required
-                placeholder="NguyềE Văn A"
+                placeholder="Nguyen Van A"
                 className="w-full px-3 py-2.5 rounded-md border border-[rgba(0,0,0,0.15)] text-body text-text-primary bg-surface focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
               />
             </div>
@@ -91,13 +91,13 @@ export default function RegisterPage() {
               />
             </div>
             <div>
-              <label className="block text-small font-medium text-text-primary mb-1.5">Mật khẩu</label>
+              <label className="block text-small font-medium text-text-primary mb-1.5">Mat khau</label>
               <input
                 type="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
-                placeholder="Tối thiểu 6 ký tự"
+                placeholder="Toi thieu 6 ky tu"
                 className="w-full px-3 py-2.5 rounded-md border border-[rgba(0,0,0,0.15)] text-body text-text-primary bg-surface focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
               />
             </div>
@@ -113,15 +113,15 @@ export default function RegisterPage() {
               disabled={loading}
               className="w-full py-2.5 rounded-md bg-primary text-white font-semibold text-body hover:opacity-90 transition-opacity disabled:opacity-60"
             >
-              {loading ? 'Đang tạo tài khoản...' : 'Tạo tài khoản miềE phí'}
+              {loading ? 'Dang tao tai khoan...' : 'Tao tai khoan mien phi'}
             </button>
           </form>
         </div>
 
         <p className="text-center text-small text-text-secondary mt-5">
-          Đã có tài khoản?{' '}
+          Da co tai khoan?{' '}
           <Link href="/login" className="text-primary font-medium hover:opacity-80 transition-opacity">
-            Đăng nhập
+            Dang nhap
           </Link>
         </p>
       </div>

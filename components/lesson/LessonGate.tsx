@@ -32,15 +32,14 @@ export default function LessonGate({ completedTopics, unlockTopics, loginRedirec
               <Lock className="w-6 h-6 text-primary" />
             </div>
             <h3 className="text-h3 font-semibold text-text-primary">
-              Bài học tiếp theo cần đăng nhập
+              Bai hoc tiep theo can dang nhap
             </h3>
           </div>
 
-          {/* What they learned */}
           {completedTopics.length > 0 && (
             <div className="mb-4">
               <div className="text-small font-semibold text-text-secondary mb-2">
-                Bạn đã học được:
+                Ban da hoc duoc:
               </div>
               <div className="space-y-1.5">
                 {completedTopics.map((topic, i) => (
@@ -53,11 +52,10 @@ export default function LessonGate({ completedTopics, unlockTopics, loginRedirec
             </div>
           )}
 
-          {/* What they'll unlock */}
           {unlockTopics.length > 0 && (
             <div className="mb-5">
               <div className="text-small font-semibold text-text-secondary mb-2">
-                Tiếp tục đềEhọc:
+                Tiep tuc de hoc:
               </div>
               <div className="space-y-1.5">
                 {unlockTopics.map((topic, i) => (
@@ -70,19 +68,18 @@ export default function LessonGate({ completedTopics, unlockTopics, loginRedirec
             </div>
           )}
 
-          {/* CTA buttons */}
           <div className="flex gap-3">
             <Link
               href={`/register?redirectTo=${encodeURIComponent(loginRedirectUrl)}`}
               className="flex-1 flex items-center justify-center px-4 py-2.5 rounded-md bg-primary text-white font-semibold text-small hover:opacity-90 transition-opacity"
             >
-              Đăng ký miềE phí
+              Dang ky mien phi
             </Link>
             <Link
               href={`/login?redirectTo=${encodeURIComponent(loginRedirectUrl)}`}
               className="flex-1 flex items-center justify-center px-4 py-2.5 rounded-md border border-[rgba(0,0,0,0.15)] text-text-primary font-semibold text-small hover:bg-secondary transition-colors"
             >
-              Đăng nhập
+              Dang nhap
             </Link>
           </div>
         </div>
@@ -90,4 +87,3 @@ export default function LessonGate({ completedTopics, unlockTopics, loginRedirec
     </div>
   )
 }
-

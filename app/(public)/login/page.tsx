@@ -91,7 +91,7 @@ export default function LoginPage() {
         <p className="text-center text-small text-text-secondary mt-5">
           Chưa có tài khoản?{' '}
           <Link href="/register" className="text-primary font-medium hover:opacity-80 transition-opacity">
-            Đăng ký miềE phí
+            Đăng ký miễn phí
           </Link>
         </p>
       </div>
