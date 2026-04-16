@@ -23,7 +23,7 @@ export default async function CourseDetailPage({ params }: Props) {
     .single()
 
   if (!course) notFound()
-
+  
   const lessons = (course.lessons as any[])
     ?.filter((l: any) => l.is_published)
     ?.sort((a: any, b: any) => a.order_index - b.order_index) ?? []
