@@ -5,19 +5,26 @@ import { getLevelFromXP, getNextLevel } from '@/types/app'
 
 export const dynamic = 'force-dynamic'
 
+interface Profile {
+  id: string
+  full_name: string | null
+  xp_points: number
+  streak_count: number
+}
+
 export default async function DashboardPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) return null
 
-const { data: profileData } = await supabase
-  .from('profiles')
-  .select('*')
-  .eq('id', user.id)
-  .single()
+  const { data: profileRaw } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .single()
 
-const profile = profileData as any
+  const profile = profileRaw as unknown as Profile | null
 
   // Last lesson in progress
   const { data: inProgressLessons } = await supabase
@@ -45,21 +52,14 @@ const profile = profileData as any
     .lte('next_review_at', new Date().toISOString())
     .limit(5)
 
-  // Track progress
-  const { data: tracks } = await supabase
-    .from('tracks')
-    .select('id, slug, title, icon, courses(id, lessons(id))')
-    .eq('is_published', true)
-    .order('order_index')
-
-  const xp = (profile as any)?.xp_points ?? 0
+  const xp = profile?.xp_points ?? 0
   const currentLevel = getLevelFromXP(xp)
   const nextLevel = getNextLevel(xp)
   const progressToNext = nextLevel
     ? Math.round(((xp - currentLevel.xp_required) / (nextLevel.xp_required - currentLevel.xp_required)) * 100)
     : 100
 
-  const continueLesson = inProgressLessons?.[0]
+  const continueLesson = inProgressLessons?.[0] as any
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -140,14 +140,14 @@ const profile = profileData as any
           <h2 className="text-body font-bold text-text-primary mb-3">Tiếp tục học</h2>
           {continueLesson ? (
             <Link
-              href={`/learn/${(continueLesson as unknown as { lessons: { id: string } }).lessons.id}`}
+              href={`/learn/${continueLesson.lessons?.id}`}
               className="block bg-surface rounded-lg border border-[rgba(0,0,0,0.08)] shadow-card p-5 hover:shadow-modal transition-shadow"
             >
               <div className="text-caption text-text-secondary mb-1">
-                {((continueLesson as unknown as { lessons: { courses: { title: string } } }).lessons as unknown as { courses: { title: string } }).courses?.title}
+                {continueLesson.lessons?.courses?.title}
               </div>
               <h3 className="font-semibold text-text-primary mb-3">
-                {(continueLesson as unknown as { lessons: { title: string } }).lessons.title}
+                {continueLesson.lessons?.title}
               </h3>
               <div className="h-2 bg-secondary rounded-full overflow-hidden mb-3">
                 <div
@@ -191,7 +191,7 @@ const profile = profileData as any
           {(vocabDue?.length ?? 0) > 0 ? (
             <div className="bg-surface rounded-lg border border-[rgba(0,0,0,0.08)] shadow-card p-4">
               <div className="space-y-2 mb-3">
-                {vocabDue?.slice(0, 3).map(item => (
+                {(vocabDue as any[])?.slice(0, 3).map((item: any) => (
                   <div key={item.id} className="flex items-center justify-between py-1.5 border-b border-[rgba(0,0,0,0.06)] last:border-0">
                     <div>
                       <span className="text-small font-medium text-text-primary">{item.term}</span>
