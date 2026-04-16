@@ -18,21 +18,28 @@ interface Props {
   params: Promise<{ lessonId: string }>
 }
 
-export default function LearnPage({ params }: Props) {
-  const { lessonId } = use(params)
-  const [lesson, setLesson] = useState<{
+interface LessonState {
+  id: string
+  title: string
+  content: LessonContent | null
+  estimated_minutes: number
+  courses: {
     id: string
     title: string
-    content: LessonContent | null
-    estimated_minutes: number
-    courses: {
-      id: string
-      title: string
-      slug: string
-      order_index: number
-    } | null
-  } | null>(null)
-  const [progress, setProgress] = useState<{ status: string; progress_percent: number } | null>(null)
+    slug: string
+    order_index: number
+  } | null
+}
+
+interface ProgressState {
+  status: string
+  progress_percent: number
+}
+
+export default function LearnPage({ params }: Props) {
+  const { lessonId } = use(params)
+  const [lesson, setLesson] = useState<LessonState | null>(null)
+  const [progress, setProgress] = useState<ProgressState | null>(null)
   const [adjacentLessons, setAdjacentLessons] = useState<{ prev?: string; next?: string }>({})
   const [loading, setLoading] = useState(true)
   const [isCompleted, setIsCompleted] = useState(false)
@@ -44,49 +51,47 @@ export default function LearnPage({ params }: Props) {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
 
-const { data: lessonRaw } = await supabase
-  .from('lessons')
-  .select('*, courses(id, title, slug, order_index)')
-  .eq('id', lessonId)
-  .single()
+      // Fetch lesson
+      const { data: lessonRaw } = await supabase
+        .from('lessons')
+        .select('*, courses(id, title, slug, order_index)')
+        .eq('id', lessonId)
+        .single()
 
-if (!lessonRaw) { setLoading(false); return }
+      if (!lessonRaw) { setLoading(false); return }
 
-const lessonData = lessonRaw as any
+      const lessonData = lessonRaw as any
+      setLesson(lessonData as LessonState)
 
-setLesson(lessonData as unknown as typeof lesson)
-
-// Get adjacent lessons in same course
-if (lessonData.course_id) {
+      // Get adjacent lessons
+      if (lessonData.course_id) {
         const { data: siblingsRaw } = await supabase
-  .from('lessons')
-  .select('id, order_index')
-  .eq('course_id', lessonData.course_id)
-  .eq('is_published', true)
-  .order('order_index')
+          .from('lessons')
+          .select('id, order_index')
+          .eq('course_id', lessonData.course_id)
+          .eq('is_published', true)
+          .order('order_index')
 
-const siblings = siblingsRaw as any[]  | null
-
-if (siblings) {
-  const idx = siblings.findIndex((s: any) => s.id === lessonId)
-          setAdjacentLessons({
-            prev: idx > 0 ? siblings[idx - 1].id : undefined,
-            next: idx < siblings.length - 1 ? siblings[idx + 1].id : undefined,
-          })
-        }
+        const siblings = (siblingsRaw as any[]) ?? []
+        const idx = siblings.findIndex((s: any) => s.id === lessonId)
+        setAdjacentLessons({
+          prev: idx > 0 ? siblings[idx - 1].id : undefined,
+          next: idx < siblings.length - 1 ? siblings[idx + 1].id : undefined,
+        })
       }
 
       // Get progress
       if (user) {
-        const { data: prog } = await supabase
+        const { data: progRaw } = await supabase
           .from('lesson_progress')
           .select('*')
           .eq('user_id', user.id)
           .eq('lesson_id', lessonId)
           .single()
 
+        const prog = progRaw as any
         if (prog) {
-          setProgress(prog)
+          setProgress({ status: prog.status, progress_percent: prog.progress_percent })
           setIsCompleted(prog.status === 'completed')
         }
       }
@@ -146,12 +151,8 @@ if (siblings) {
 
   return (
     <>
-      {/* XP popup */}
-      {xpPopup && (
-        <XPPopup xp={xpPopup} onDone={() => setXpPopup(null)} />
-      )}
+      {xpPopup && <XPPopup xp={xpPopup} onDone={() => setXpPopup(null)} />}
 
-      {/* Top bar */}
       <LessonTopbar
         courseTitle={lesson.courses?.title ?? ''}
         trackSlug={lesson.courses?.slug ?? ''}
@@ -161,10 +162,8 @@ if (siblings) {
         xpEarned={isCompleted ? 50 : undefined}
       />
 
-      {/* Content */}
       <div className="pt-14 pb-16">
         <div className="max-w-2xl mx-auto px-4 py-8">
-          {/* Lesson title */}
           <div className="mb-8">
             <h1 className="text-h1 font-bold text-text-primary mb-2">{lesson.title}</h1>
             <div className="flex items-center gap-3 text-small text-text-secondary">
@@ -177,17 +176,12 @@ if (siblings) {
             </div>
           </div>
 
-          {/* Blocks */}
           <div className="space-y-8">
-            {blocks
-              .sort((a, b) => a.order - b.order)
-              .map(renderBlock)
-            }
+            {blocks.sort((a, b) => a.order - b.order).map(renderBlock)}
           </div>
         </div>
       </div>
 
-      {/* Bottom nav */}
       <LessonBottomNav
         prevLessonId={adjacentLessons.prev}
         nextLessonId={adjacentLessons.next}
