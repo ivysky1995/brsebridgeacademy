@@ -58,15 +58,17 @@ setLesson(lessonData as unknown as typeof lesson)
 
 // Get adjacent lessons in same course
 if (lessonData.course_id) {
-        const { data: siblings } = await supabase
-          .from('lessons')
-          .select('id, order_index')
-          .eq('course_id', lessonData.course_id)
-          .eq('is_published', true)
-          .order('order_index')
+        const { data: siblingsRaw } = await supabase
+  .from('lessons')
+  .select('id, order_index')
+  .eq('course_id', lessonData.course_id)
+  .eq('is_published', true)
+  .order('order_index')
 
-        if (siblings) {
-          const idx = siblings.findIndex(s => s.id === lessonId)
+const siblings = siblingsRaw as any[]  | null
+
+if (siblings) {
+  const idx = siblings.findIndex((s: any) => s.id === lessonId)
           setAdjacentLessons({
             prev: idx > 0 ? siblings[idx - 1].id : undefined,
             next: idx < siblings.length - 1 ? siblings[idx + 1].id : undefined,
