@@ -11,11 +11,13 @@ export default async function DashboardPage() {
 
   if (!user) return null
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single()
+const { data: profileData } = await supabase
+  .from('profiles')
+  .select('*')
+  .eq('id', user.id)
+  .single()
+
+const profile = profileData as any
 
   // Last lesson in progress
   const { data: inProgressLessons } = await supabase
