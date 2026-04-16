@@ -55,7 +55,7 @@ export async function createDeck(name: string, description?: string) {
 
   if (!user) return { error: 'Not authenticated' }
 
-  const { data, error } = await supabase
+const { data, error } = await supabase
     .from('user_vocab_decks')
     .insert({ user_id: user.id, name, description: description ?? null })
     .select()
@@ -64,7 +64,7 @@ export async function createDeck(name: string, description?: string) {
   if (error) return { error: error.message }
 
   revalidatePath('/vocabulary')
-  return { success: true, deck: data }
+  return { success: true, deck: data as any }
 }
 
 // SM2 algorithm for spaced repetition

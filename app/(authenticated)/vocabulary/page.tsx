@@ -69,7 +69,7 @@ const decksWithCounts = await Promise.all(
 
     const result = await createDeck(newName.trim())
     if (result.success && result.deck) {
-      setDecks(prev => [{ ...result.deck, item_count: 0, due_count: 0 }, ...prev])
+      setDecks(prev => [{ ...(result.deck as any), item_count: 0, due_count: 0 }, ...prev])
       setNewName('')
       setShowCreate(false)
     }
