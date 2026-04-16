@@ -28,17 +28,19 @@ export default function VocabularyPage() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
 
-      const { data: deckList } = await supabase
-        .from('user_vocab_decks')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false })
+const { data: deckListRaw } = await supabase
+  .from('user_vocab_decks')
+  .select('*')
+  .eq('user_id', user.id)
+  .order('created_at', { ascending: false })
 
-      if (!deckList) { setLoading(false); return }
+const deckList = deckListRaw as any[] | null
 
-      // Get item counts
-      const decksWithCounts = await Promise.all(
-        deckList.map(async (deck) => {
+if (!deckList) { setLoading(false); return }
+
+// Get item counts
+const decksWithCounts = await Promise.all(
+  deckList.map(async (deck: any) => {
           const { count: totalCount } = await supabase
             .from('user_vocab_items')
             .select('*', { count: 'exact', head: true })
