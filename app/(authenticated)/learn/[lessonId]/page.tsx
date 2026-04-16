@@ -44,18 +44,20 @@ export default function LearnPage({ params }: Props) {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
 
-      const { data: lessonData } = await supabase
-        .from('lessons')
-        .select('*, courses(id, title, slug, order_index)')
-        .eq('id', lessonId)
-        .single()
+const { data: lessonRaw } = await supabase
+  .from('lessons')
+  .select('*, courses(id, title, slug, order_index)')
+  .eq('id', lessonId)
+  .single()
 
-      if (!lessonData) { setLoading(false); return }
+if (!lessonRaw) { setLoading(false); return }
 
-      setLesson(lessonData as unknown as typeof lesson)
+const lessonData = lessonRaw as any
 
-      // Get adjacent lessons in same course
-      if (lessonData.course_id) {
+setLesson(lessonData as unknown as typeof lesson)
+
+// Get adjacent lessons in same course
+if (lessonData.course_id) {
         const { data: siblings } = await supabase
           .from('lessons')
           .select('id, order_index')
