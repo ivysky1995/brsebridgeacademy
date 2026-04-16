@@ -1,5 +1,6 @@
-'use server'
 // @ts-nocheck
+'use server'
+
 import Link from 'next/link'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
@@ -88,12 +89,12 @@ export async function reviewCard(itemId: string, quality: 0 | 1 | 2 | 3) {
   let daysUntilReview = 1
 
   if (quality >= 2) {
-    // Correct answer — increase mastery
+    // Correct answer  Eincrease mastery
     newMastery = Math.min(5, newMastery + 1)
     const intervals = [1, 2, 4, 8, 14, 30]
     daysUntilReview = intervals[newMastery] ?? 30
   } else {
-    // Wrong — reset mastery
+    // Wrong  Ereset mastery
     newMastery = Math.max(0, newMastery - 1)
     daysUntilReview = 1
   }
@@ -107,3 +108,4 @@ export async function reviewCard(itemId: string, quality: 0 | 1 | 2 | 3) {
 
   return { success: true }
 }
+

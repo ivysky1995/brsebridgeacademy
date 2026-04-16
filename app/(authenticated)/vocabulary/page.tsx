@@ -1,5 +1,6 @@
-'use client'
 // @ts-nocheck
+'use client'
+
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
@@ -162,8 +163,7 @@ const decksWithCounts = await Promise.all(
 
               {(deck.due_count ?? 0) > 0 && (
                 <div className="mt-3 flex items-center justify-center w-full py-2 rounded-md bg-primary text-white text-small font-medium">
-                  Ôn tập ngay →
-                </div>
+                  Ôn tập ngay ↁE                </div>
               )}
             </Link>
           ))}
@@ -187,3 +187,4 @@ const decksWithCounts = await Promise.all(
     </div>
   )
 }
+

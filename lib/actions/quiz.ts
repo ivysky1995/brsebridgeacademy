@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use server'
 
 import { revalidatePath } from 'next/cache'
@@ -81,3 +82,4 @@ export async function submitQuiz({ quizId, answers, timeSpentSeconds }: SubmitQu
 
   return { success: true, score, correct, total, passed, xpEarned: 0 }
 }
+

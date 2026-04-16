@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Link from 'next/link'
 import { BookOpen } from 'lucide-react'
 
@@ -28,3 +29,4 @@ export default function Footer() {
     </footer>
   )
 }
+

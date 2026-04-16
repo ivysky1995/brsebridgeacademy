@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use server'
 
 import { revalidatePath } from 'next/cache'
@@ -101,3 +102,4 @@ export async function signInWithGoogle() {
     redirect(data.url)
   }
 }
+

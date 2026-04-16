@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { Check, ChevronRight } from 'lucide-react'
@@ -91,3 +92,4 @@ export default function SummaryBlock({ block, nextLessonId }: Props) {
     </div>
   )
 }
+

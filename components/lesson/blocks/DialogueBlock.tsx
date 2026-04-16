@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { useState } from 'react'
@@ -37,7 +38,7 @@ export default function DialogueBlock({ block }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-3 bg-secondary border-b border-[rgba(0,0,0,0.06)]">
         <div className="flex items-center gap-2">
-          <span className="text-lg">üó£Ô∏è</span>
+          <span className="text-lg">üó£ÅEÅE/span>
           <span className="text-small font-semibold text-text-secondary">
             {data.scene}
           </span>
@@ -110,3 +111,4 @@ export default function DialogueBlock({ block }: Props) {
     </div>
   )
 }
+

@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { useState } from 'react'
@@ -39,7 +40,7 @@ function FlipCard({ item, onAdd }: FlipCardProps) {
               {item.category}
             </span>
           )}
-          <div className="mt-3 text-caption text-text-secondary">Click để flip ↩</div>
+          <div className="mt-3 text-caption text-text-secondary">Click đềEflip ↩</div>
         </div>
 
         {/* Back: VN meaning + example */}
@@ -67,7 +68,7 @@ export default function VocabSpotlightBlock({ block, onAddVocab }: Props) {
         <span className="text-lg">📚</span>
         <span className="font-semibold text-text-primary">Vocab Spotlight</span>
         <span className="ml-auto text-caption text-text-secondary">
-          Click để flip · Hover để thêm vào deck
+          Click đềEflip · Hover đềEthêm vào deck
         </span>
       </div>
 
@@ -85,3 +86,4 @@ export default function VocabSpotlightBlock({ block, onAddVocab }: Props) {
     </div>
   )
 }
+

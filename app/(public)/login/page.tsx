@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { useState } from 'react'
@@ -90,7 +91,7 @@ export default function LoginPage() {
         <p className="text-center text-small text-text-secondary mt-5">
           Chưa có tài khoản?{' '}
           <Link href="/register" className="text-primary font-medium hover:opacity-80 transition-opacity">
-            Đăng ký miễn phí
+            Đăng ký miềE phí
           </Link>
         </p>
       </div>

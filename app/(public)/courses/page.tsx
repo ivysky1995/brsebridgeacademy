@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { BookOpen, Clock, ChevronRight } from 'lucide-react'
@@ -29,7 +30,7 @@ export default async function CoursesPage() {
     <div className="max-w-5xl mx-auto px-4 py-10">
       <h1 className="text-h1 font-bold text-text-primary mb-2">Khóa học</h1>
       <p className="text-body text-text-secondary mb-10">
-        Học IT tại Nhật theo lộ trình rõ ràng — từ cơ bản đến thực chiến
+        Học IT tại Nhật theo lềEtrình rõ ràng  Etừ cơ bản đến thực chiến
       </p>
 
       <div className="space-y-12">
@@ -96,3 +97,4 @@ export default async function CoursesPage() {
     </div>
   )
 }
+

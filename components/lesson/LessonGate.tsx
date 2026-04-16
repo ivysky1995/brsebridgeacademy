@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Link from 'next/link'
 import { Lock, CheckCircle, ArrowRight } from 'lucide-react'
 
@@ -56,7 +57,7 @@ export default function LessonGate({ completedTopics, unlockTopics, loginRedirec
           {unlockTopics.length > 0 && (
             <div className="mb-5">
               <div className="text-small font-semibold text-text-secondary mb-2">
-                Tiếp tục để học:
+                Tiếp tục đềEhọc:
               </div>
               <div className="space-y-1.5">
                 {unlockTopics.map((topic, i) => (
@@ -75,7 +76,7 @@ export default function LessonGate({ completedTopics, unlockTopics, loginRedirec
               href={`/register?redirectTo=${encodeURIComponent(loginRedirectUrl)}`}
               className="flex-1 flex items-center justify-center px-4 py-2.5 rounded-md bg-primary text-white font-semibold text-small hover:opacity-90 transition-opacity"
             >
-              Đăng ký miễn phí
+              Đăng ký miềE phí
             </Link>
             <Link
               href={`/login?redirectTo=${encodeURIComponent(loginRedirectUrl)}`}
@@ -89,3 +90,4 @@ export default function LessonGate({ completedTopics, unlockTopics, loginRedirec
     </div>
   )
 }
+

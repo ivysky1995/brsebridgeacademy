@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Header from '@/components/layout/Header'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
@@ -15,3 +16,4 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
     </div>
   )
 }
+

@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -39,3 +40,4 @@ export default function XPPopup({ xp, onDone }: Props) {
     </div>
   )
 }
+

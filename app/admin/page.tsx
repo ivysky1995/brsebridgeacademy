@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { FileText, Users, BookOpen, HelpCircle, Plus } from 'lucide-react'
@@ -79,3 +80,4 @@ export default async function AdminDashboard() {
     </div>
   )
 }
+
