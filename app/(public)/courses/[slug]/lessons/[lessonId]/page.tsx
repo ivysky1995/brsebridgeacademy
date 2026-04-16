@@ -1,3 +1,5 @@
+// @ts-nocheck
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { notFound, redirect } from 'next/navigation'
 

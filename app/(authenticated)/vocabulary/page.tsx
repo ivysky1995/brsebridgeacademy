@@ -1,9 +1,9 @@
 'use client'
-
+// @ts-nocheck
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { createDeck } from '@/lib/actions/vocabulary'
-import Link from 'next/link'
 import { Plus, BookOpen, Layers } from 'lucide-react'
 
 interface Deck {

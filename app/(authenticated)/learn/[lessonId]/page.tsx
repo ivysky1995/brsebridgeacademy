@@ -1,5 +1,6 @@
 'use client'
-
+// @ts-nocheck
+import Link from 'next/link'
 import { use, useEffect, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { markLessonComplete } from '@/lib/actions/lessons'

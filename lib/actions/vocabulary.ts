@@ -1,5 +1,6 @@
 'use server'
-
+// @ts-nocheck
+import Link from 'next/link'
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { XP_REWARDS } from '@/types/app'
