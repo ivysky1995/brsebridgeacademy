@@ -43,10 +43,10 @@ export default function QuickCheckBlock({ block }: Props) {
   return (
     <div className="rounded-lg overflow-hidden border border-[rgba(0,0,0,0.08)] shadow-card">
       <div className="flex items-center gap-2 px-5 py-3 bg-secondary border-b border-[rgba(0,0,0,0.06)]">
-        <span className="text-lg">✁E/span>
+        <span className="text-lg">✅</span>
         <span className="font-semibold text-text-primary">Quick Check</span>
         <span className="ml-auto text-caption text-text-secondary">
-          Không tính điểm  EchềEluyện tập
+          Không tính điểm — chỉ luyện tập
         </span>
       </div>
 
@@ -72,7 +72,7 @@ export default function QuickCheckBlock({ block }: Props) {
                     if (isCorrect) {
                       optClass = 'border-primary bg-primary-light cursor-default scale-[1.02]'
                     } else if (isSelected && !isCorrect) {
-                      optClass = cn('border-danger bg-red-50 cursor-default', qState.state === 'wrong' && isSelected ? 'shake' : '')
+                      optClass = 'border-danger bg-red-50 cursor-default'
                     } else {
                       optClass = 'border-[rgba(0,0,0,0.06)] bg-secondary/50 cursor-default opacity-60'
                     }
@@ -96,9 +96,9 @@ export default function QuickCheckBlock({ block }: Props) {
                           : 'border-[rgba(0,0,0,0.2)]'
                       )}>
                         {showResult && isCorrect
-                          ? '✁E
+                          ? '✓'
                           : showResult && isSelected && !isCorrect
-                          ? '✁E
+                          ? '✗'
                           : option.id.toUpperCase()}
                       </span>
                       <span className="flex-1">{option.text}</span>
@@ -113,9 +113,8 @@ export default function QuickCheckBlock({ block }: Props) {
                 })}
               </div>
 
-              {/* Explanation */}
               {answered && (
-                <div className="slide-down mt-3 p-4 rounded-md bg-secondary border-l-4 border-primary">
+                <div className="mt-3 p-4 rounded-md bg-secondary border-l-4 border-primary">
                   <div className="flex items-start gap-2">
                     {qState.state === 'correct'
                       ? <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
@@ -126,7 +125,7 @@ export default function QuickCheckBlock({ block }: Props) {
                         'text-small font-semibold',
                         qState.state === 'correct' ? 'text-primary' : 'text-danger'
                       )}>
-                        {qState.state === 'correct' ? 'Chính xác! 🎉' : 'Chưa đúng'}
+                        {qState.state === 'correct' ? 'Chinh xac! 🎉' : 'Chua dung'}
                       </span>
                       <p className="text-small text-text-secondary mt-1">{question.explanation}</p>
                     </div>
@@ -140,4 +139,3 @@ export default function QuickCheckBlock({ block }: Props) {
     </div>
   )
 }
-

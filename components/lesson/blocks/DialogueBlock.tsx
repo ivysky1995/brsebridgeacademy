@@ -35,10 +35,9 @@ export default function DialogueBlock({ block }: Props) {
 
   return (
     <div className="rounded-lg overflow-hidden border border-[rgba(0,0,0,0.08)] shadow-card">
-      {/* Header */}
       <div className="flex items-center justify-between px-5 py-3 bg-secondary border-b border-[rgba(0,0,0,0.06)]">
         <div className="flex items-center gap-2">
-          <span className="text-lg">🗣�E�E/span>
+          <span className="text-lg">🗣️</span>
           <span className="text-small font-semibold text-text-secondary">
             {data.scene}
           </span>
@@ -47,11 +46,10 @@ export default function DialogueBlock({ block }: Props) {
           onClick={toggleAll}
           className="text-small text-primary font-medium hover:opacity-80 transition-opacity"
         >
-          {allRevealed ? 'Ẩn tất cả dịch' : '[Xem tất cả dịch]'}
+          {allRevealed ? 'An tat ca dich' : '[Xem tat ca dich]'}
         </button>
       </div>
 
-      {/* Dialogue lines */}
       <div className="bg-surface p-5 space-y-4">
         {data.lines.map((line, index) => {
           const isJP = line.speaker === 'jp'
@@ -62,12 +60,10 @@ export default function DialogueBlock({ block }: Props) {
               key={index}
               className={cn('flex flex-col', isJP ? 'items-start' : 'items-end')}
             >
-              {/* Speaker label */}
               <span className="text-caption text-text-secondary mb-1 px-1">
                 {line.speaker_label}
               </span>
 
-              {/* Bubble */}
               <div
                 className={cn(
                   'max-w-[80%] rounded-lg px-4 py-3',
@@ -94,11 +90,10 @@ export default function DialogueBlock({ block }: Props) {
                     isJP ? 'text-primary' : 'text-white/70'
                   )}
                 >
-                  {isRevealed ? '[Ẩn dịch]' : '[Xem dịch]'}
+                  {isRevealed ? '[An dich]' : '[Xem dich]'}
                 </button>
               </div>
 
-              {/* Note annotation */}
               {line.note && (
                 <p className="text-caption text-text-secondary italic mt-1 px-1 max-w-[80%]">
                   💬 {line.note}
@@ -111,4 +106,3 @@ export default function DialogueBlock({ block }: Props) {
     </div>
   )
 }
-
