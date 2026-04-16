@@ -50,7 +50,7 @@ export default async function DashboardPage() {
     .eq('is_published', true)
     .order('order_index')
 
-  const xp = profile?.xp_points ?? 0
+  const xp = (profile as any)?.xp_points ?? 0
   const currentLevel = getLevelFromXP(xp)
   const nextLevel = getNextLevel(xp)
   const progressToNext = nextLevel
