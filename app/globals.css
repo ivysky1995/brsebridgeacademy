@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #1D9E75;
+  --color-primary-light: #E1F5EE;
+  --color-primary-dark: #0F6E56;
+  --color-accent: #378ADD;
+  --color-warning: #BA7517;
+  --color-danger: #A32D2D;
+  --color-bg-page: #F5F6F8;
+  --color-bg-surface: #FFFFFF;
+  --color-bg-secondary: #F1F2F4;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6B7280;
+  --color-border: rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans JP', 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Vocab highlight in theory blocks */
+.vocab-highlight {
+  border-bottom: 1.5px dashed #1D9E75;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.vocab-highlight:hover {
+  opacity: 0.8;
+}
+
+/* Flashcard 3D flip */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  transition: transform 300ms ease;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Shake animation for wrong answers */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+.shake {
+  animation: shake 400ms ease;
+}
+
+/* Slide down for explanations */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-down {
+  animation: slideDown 250ms ease;
+}
+
+/* XP popup */
+@keyframes xpPop {
+  0% { opacity: 0; transform: scale(0.8) translateY(8px); }
+  60% { transform: scale(1.05) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.xp-pop {
+  animation: xpPop 300ms ease forwards;
+}
+
+/* Progress bar */
+.progress-bar {
+  transition: width 500ms ease;
+}
+
+/* Staggered fade for cards */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 300ms ease forwards;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* TipTap editor prose overrides */
+.tiptap-content h1 { font-size: 22px; font-weight: 600; margin-bottom: 16px; }
+.tiptap-content h2 { font-size: 18px; font-weight: 600; margin-bottom: 12px; margin-top: 24px; }
+.tiptap-content h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; margin-top: 20px; }
+.tiptap-content p { margin-bottom: 12px; }
+.tiptap-content ul, .tiptap-content ol { padding-left: 24px; margin-bottom: 12px; }
+.tiptap-content li { margin-bottom: 4px; }
+.tiptap-content code { font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #F1F2F4; padding: 2px 6px; border-radius: 4px; }
+.tiptap-content pre { background: #1a1a2e; color: #e2e8f0; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 12px; }
+.tiptap-content pre code { background: transparent; padding: 0; color: inherit; }
+.tiptap-content table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+.tiptap-content th, .tiptap-content td { border: 1px solid rgba(0,0,0,0.1); padding: 8px 12px; }
+.tiptap-content th { background: #F1F2F4; font-weight: 600; }
